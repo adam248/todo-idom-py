@@ -6,9 +6,11 @@ authors = ["Adam Butler <adamjbutler091@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+idom = "^0.40.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+toml = "^0.10.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
