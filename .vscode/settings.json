@@ -7,7 +7,7 @@
         "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "php": "php",
-        "python": "$pythonPath -m todo_idom_py",
+        "python": "& c:/Users/Adam/AppData/Local/pypoetry/Cache/virtualenvs/todo-idom-py-sXn-FM53-py3.9/Scripts/Activate.ps1 \rpython -m todo_idom_py",
         "perl": "perl",
         "perl6": "perl6",
         "ruby": "ruby",
@@ -53,5 +53,8 @@
         "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "sml": "cd $dir && sml $fileName"
     },
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "code-runner.runInTerminal": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.defaultLanguage": "python"
 }
