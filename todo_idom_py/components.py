@@ -1,18 +1,14 @@
-import dataclasses
-import json
-
 from idom import component, html, use_state
 
 from .datastructure import TodoList
 
 
 def event_dbg(event):
-    print(json.dumps(event, indent=4))
+    print(event)
 
 
 @component
 def Button(label, color=None, on_click=event_dbg, visible=True):
-
     return html.button(
         {
             "class": "btn",
@@ -38,10 +34,7 @@ def Item(i: dict, tasks, set_tasks):
         set_tasks(tasks)
 
     def on_edit(event):
-        if editing:
-            set_editing(False)
-        else:
-            set_editing(True)
+        set_editing(not editing)
 
     def on_edit_input_changed(event):
         i["text"] = event["target"]["value"]
@@ -52,11 +45,15 @@ def Item(i: dict, tasks, set_tasks):
             on_edit(event)
 
     def on_delete(event):
+        set_editing(False)
+        set_visible(False)
         set_tasks([t for t in tasks if t["id"] != i["id"]])
 
     display = html.label(
         {
             "style": {
+                "width": "clamp(10ch, 50%, 19ch)",
+                "display": "inline-block",
                 "margin": "0.5em",
                 "textDecoration": "line-through" if i["done"] else "",
             }
@@ -66,7 +63,7 @@ def Item(i: dict, tasks, set_tasks):
     if editing:
         display = html.input(
             {
-                "text": i["text"],
+                "value": i["text"],
                 "onChange": on_edit_input_changed,
                 "onKeyPress": on_key_press,
             }
@@ -83,6 +80,7 @@ def Item(i: dict, tasks, set_tasks):
                 "type": "checkbox",
                 "value": i["id"],
                 "checked": i["done"],
+                "float": "top",
             }
         ),
         display,
@@ -99,7 +97,6 @@ def NewTask(tasks, set_tasks):
     def on_add(event):
         if task_text != "":
             set_task_text("")
-            print(f"Add new task {task_text}")
             set_tasks([*tasks, TodoList.add_task(task_text)])
 
     def on_change(event):
@@ -139,5 +136,5 @@ def TodoApp():
     return html.section(
         {"style": {"margin": "0.5em"}},
         html.h1("My Todo List"),
-        DataList(tasks, set_tasks, filter_by_priority=1, sort_by_priority=True),
+        DataList(tasks, set_tasks),
     )
