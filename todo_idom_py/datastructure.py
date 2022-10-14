@@ -4,7 +4,7 @@ from uuid import uuid4
 class TodoList:
     def __init__(self):
         self.tasks = [
-            {"id": 0, "text": "Make breakfasts", "priority": 0},
+            {"id": 0, "text": "Make breakfast", "priority": 0, "done": True},
             {"id": 1, "text": "Feed the dog", "priority": 0},
             {"id": 2, "text": "Do laundry", "priority": 2},
             {"id": 3, "text": "Go on a run", "priority": 1},
@@ -22,4 +22,9 @@ class TodoList:
 
     def set_all_tasks_to_undone(self):
         for task in self.tasks:
-            task["done"] = False
+            if task.get("done", None) is None:
+                task["done"] = False
+
+    @staticmethod
+    def add_task(task: str):
+        return {"id": uuid4().hex, "text": task, "priority": 0, "done": False}
