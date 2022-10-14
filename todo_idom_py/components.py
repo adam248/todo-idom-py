@@ -1,7 +1,6 @@
 import json
-from uuid import uuid4
 
-from idom import component, html
+from idom import component, html, use_state
 
 from .datastructure import TodoList
 
@@ -11,39 +10,53 @@ def event_dbg(event):
 
 
 @component
-def Button(label, color=None):
+def Button(label, color=None, on_click=event_dbg):
 
     return html.button(
         {
             "class": "btn",
-            "onClick": event_dbg,
+            "onClick": on_click,
             "style": {
                 "backgroundColor": color,
                 "borderRadius": "8px",
             },
         },
         label,
-        key=uuid4().hex,
     )
 
 
 @component
 def Item(i: dict):
+    def on_checkbox(event):
+        key = i["id"]
+        print(f"Toggled checkbox: {key}")
+
+    def on_edit(event):
+        key = i["id"]
+        print(f"Edit: {key}")
+
+    def on_delete(event):
+        key = i["id"]
+        print(f"Delete: {key}")
 
     return html.li(
-        {"style": {"margin": "0.5em"}},
-        html.input({"onChange": event_dbg, "type": "checkbox"}, key=uuid4().hex),
+        html.input({"onChange": on_checkbox, "type": "checkbox"}),
         html.label({"style": {"margin": "0.5em"}}, i["text"]),
-        Button("✏️", color="blue"),
-        Button("🗑️", color="red"),
+        Button("✏️", color="blue", on_click=on_edit),
+        Button("🗑️", color="red", on_click=on_delete),
         key=i["id"],
     )
 
 
-new_task_form = html.form(
-    html.input({"onChange": event_dbg, "style": {"margin": "0.5em"}}),
-    Button("➕", color="green"),
-)
+@component
+def NewTask():
+    def on_add(event):
+        print("Add new task")
+
+    return html.span(
+        html.input({"onChange": event_dbg}),
+        Button("➕", color="green", on_click=on_add),
+    )
 
 
 @component
@@ -57,7 +70,7 @@ def DataList(items, filter_by_priority=None, sort_by_priority=False):
         {
             "style": {"listStyleType": "none"},
         },
-        new_task_form,
+        NewTask(),
         list_item_elements,
     )
 
@@ -67,6 +80,7 @@ def TodoApp():
     t = TodoList()
 
     return html.section(
+        {"style": {"margin": "0.5em"}},
         html.h1("My Todo List"),
         DataList(t.tasks, filter_by_priority=1, sort_by_priority=True),
     )
