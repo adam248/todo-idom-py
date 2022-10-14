@@ -113,6 +113,7 @@ def NewTask(tasks, set_tasks):
 
 @component
 def DataList(tasks, set_tasks, filter_by_priority=None, sort_by_priority=False):
+    tasks = tasks.copy()  # fixes checkbox update delay issue for some reason
     if filter_by_priority:
         tasks = [i for i in tasks if i["priority"] <= filter_by_priority]
     if sort_by_priority:
