@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "todo-idom-py"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Adam Butler <adamjbutler091@gmail.com>"]
 
