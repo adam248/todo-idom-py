@@ -7,7 +7,6 @@ from .components import TodoApp
 def Layout():
     return html.div(
         TodoApp(),
-        html.script({"src": "https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"}),
     )
 
 
