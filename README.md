@@ -16,5 +16,5 @@ poetry install
 Project directory run command:
 
 ```
-poetry run python -m todo_idom_py
+poetry run todo
 ```
