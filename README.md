@@ -15,8 +15,7 @@ poetry run python -m todo_idom_py
 
 ## Dependencies
 
-[Poetry](https://python-poetry.org/)  
-[IDOM Github](https://github.com/idom-team/idom)  
-[IDOM Docs](https://idom-docs.herokuapp.com/docs/index.html)  
-[Starlette Github](https://github.com/encode/starlette)  
-[Starlette Docs](https://www.starlette.io/)
+- [Python](https://www.python.org/)
+- [Poetry](https://python-poetry.org/)
+- [IDOM](https://idom-docs.herokuapp.com/docs/index.html)
+- [Starlette](https://www.starlette.io/)
