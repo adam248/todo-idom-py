@@ -1,13 +1,11 @@
-from idom import component, html, run
+from idom import run
 
 from .components import TodoApp
 
 
-@component
-def Layout():
-    return html.div(
-        TodoApp(),
-    )
+def main():
+    run(TodoApp)
 
 
-run(Layout)
+if __name__ == "__main__":
+    main()
